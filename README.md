@@ -1,59 +1,112 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistem Pemesanan dan Pengelolaan Stok — Warkop Pak Yos
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi basis data dan sistem informasi untuk mendukung pencatatan transaksi 
+pemesanan, pengelolaan stok bahan baku, dan pelaporan penjualan harian pada 
+Warkop Pak Yos, Lhokseumawe. Dibangun sebagai project akhir mata kuliah 
+**Manajemen Administrasi Basis Data (MADB)**.
 
-## About Laravel
+## 📋 Deskripsi Project
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Warkop Pak Yos merupakan usaha warung kopi yang telah berdiri sejak tahun 
+1996. Seluruh proses pencatatan transaksi dan pengelolaan stok bahan baku 
+masih dilakukan secara manual, sehingga rawan terjadi kesalahan hitung, 
+kesalahan nota, dan lemahnya kontrol stok. Project ini merancang dan 
+mengimplementasikan basis data relasional (hingga 3NF) beserta aplikasi 
+web yang mengintegrasikan alur kerja **kasir, koki, barista, dan pemilik** 
+dalam satu sistem.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 👥 Tim Pengembang — Kelompok 4
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+| Nama | NIM | Peran |
+|---|---|---|
+| Zaskia Azzura | 240180140 | Project Manager & Wawancara/Observasi Lapangan |
+| Mutia Sitompul | 240180152 | Analisis dan Perancangan Basis Data |
+| M. Sutan Naufal Hasibuan | 240180162 | Pengembangan Aplikasi/Sistem |
 
-## Learning Laravel
+**Dosen Pengampu:** Zalfie Ardian, S.Kom., M.Eng.
+**Program Studi Sistem Informasi, Fakultas Teknik, Universitas Malikussaleh**
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 🛠️ Tech Stack
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Backend:** Laravel Framework (PHP) + Eloquent ORM
+- **Database:** MySQL/MariaDB
+- **Tools:** XAMPP, phpMyAdmin, MySQL Workbench
 
-## Laravel Sponsors
+## 🗄️ Struktur Basis Data
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Basis data `db_warkop_pakyos` terdiri dari **13 tabel utama**:
 
-### Premium Partners
+`Shift`, `Karyawan`, `Users`, `Meja`, `Menu`, `BahanBaku`, `Supplier`, 
+`Resep`, `Pesanan`, `DetailPesanan`, `Pembayaran`, `PembelianStok`, 
+`DetailPembelianStok`
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Dilengkapi dengan:
+- **1 View** — `v_laporan_penjualan_harian` (rekapitulasi laporan penjualan harian)
+- **1 Trigger** — `trg_kurangi_stok_otomatis` (pengurangan stok bahan baku otomatis)
+- **4 Stored Procedure** — `sp_buat_pesanan_baru`, `sp_tambah_detail_pesanan`, 
+  `sp_proses_pembayaran`, `sp_tambah_stok_bahan`
 
-## Contributing
+ERD lengkap dan Data Dictionary tersedia pada dokumen laporan (lihat folder `docs/`).
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## ⚙️ Fitur Utama
 
-## Code of Conduct
+- Pencatatan pesanan (dine-in/takeaway) oleh kasir
+- Pembagian otomatis pesanan ke koki (makanan) dan barista (minuman)
+- Pelacakan status pesanan real-time (baru → diproses → selesai → terkirim)
+- Pencatatan pembayaran (tunai/QRIS/transfer)
+- Pengurangan stok bahan baku otomatis berbasis resep menu
+- Pencatatan pembelian/restock bahan baku dari supplier
+- Dashboard laporan penjualan harian untuk pemilik usaha
+- Role-Based Access Control (RBAC) untuk 4 peran: pemilik, kasir, koki, barista
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🚀 Instalasi
 
-## Security Vulnerabilities
+1. Clone repository ini
+```bash
+   git clone https://github.com/zaskiaazzura/madb_warkop_pakyos.git
+   cd madb_warkop_pakyos
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+2. Install dependencies
+```bash
+   composer install
+   npm install
+```
 
-## License
+3. Salin file environment dan sesuaikan konfigurasi database
+```bash
+   cp .env.example .env
+   php artisan key:generate
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+4. Buat database MySQL/MariaDB
+```sql
+   CREATE DATABASE db_warkop_pakyos;
+```
+
+5. Jalankan migration dan seeder
+```bash
+   php artisan migrate --seed
+```
+
+6. Jalankan server lokal
+```bash
+   php artisan serve
+```
+
+## 📁 Struktur Folder
+├── app/
+│ ├── Http/Controllers/ # Controller per role (Pesanan, Dapur, Bar, Pembayaran, Dashboard, Stok)
+│ └── Models/ # Model Eloquent untuk 13 tabel
+├── database/
+│ ├── migrations/ # Migration 13 tabel + View/Trigger/Stored Procedure
+│ └── seeders/ # Seeder data master & data dummy transaksi
+├── resources/views/ # Blade view per role
+├── docs/ # Laporan project, ERD, Data Dictionary
+└── README.md
+
+## 📜 Lisensi
+
+Project ini dibuat untuk keperluan akademik pada mata kuliah Manajemen dan
+Administrasi Basis Data, Program Studi Sistem Informasi, Universitas 
+Malikussaleh, Tahun 2026.
