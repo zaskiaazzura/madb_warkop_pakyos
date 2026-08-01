@@ -95,6 +95,7 @@ ERD lengkap dan Data Dictionary tersedia pada dokumen laporan (lihat folder `doc
 ```
 
 ## 📁 Struktur Folder
+```bash
 ├── app/
 │ ├── Http/Controllers/ # Controller per role (Pesanan, Dapur, Bar, Pembayaran, Dashboard, Stok)
 │ └── Models/ # Model Eloquent untuk 13 tabel
@@ -104,6 +105,7 @@ ERD lengkap dan Data Dictionary tersedia pada dokumen laporan (lihat folder `doc
 ├── resources/views/ # Blade view per role
 ├── docs/ # Laporan project, ERD, Data Dictionary
 └── README.md
+```
 
 ## 📜 Lisensi
 
